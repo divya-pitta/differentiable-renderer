@@ -34,7 +34,7 @@ def project_in_2D(K, camera_pose, mesh, resolution_px):
     # Invert the camera pose matrix to get the camera extrinsics
     # Due to the particular matrix geometry we can avoid raw inversion
     Rc = tf.matrix_transpose(R)
-    Tc = -Rc @ T
+    Tc = tf.matmul(-Rc, T)
     RT = tf.concat([Rc, Tc], axis=-1)  # camera extrinsics
 
     # Correct reference system of extrinsics matrix
@@ -43,10 +43,10 @@ def project_in_2D(K, camera_pose, mesh, resolution_px):
     correction_factor = tf.constant(value=np.array([[1., 0., 0.],
                                                     [0., -1., 0.],
                                                     [0., 0., -1.]]), dtype=tf.float32)
-    RT = correction_factor @ RT
+    RT = tf.matmul(correction_factor, RT)
 
     # Compose whole camera projection matrix (3x4)
-    P = K @ RT
+    P = tf.matmul(K, RT)
 
     mesh_flat = tf.reshape(mesh, shape=(-1, 3))
     len_mesh_flat = tf.shape(mesh_flat)[0]
@@ -55,7 +55,7 @@ def project_in_2D(K, camera_pose, mesh, resolution_px):
     coords_3d_h = tf.transpose(coords_3d_h, perm=[1, 0])  # 4, n_triangles
 
     # Project 3D vertices into 2D
-    coords_projected_2D_h = tf.transpose(P @ coords_3d_h, perm=[1, 0])  # n_triangles, 3
+    coords_projected_2D_h = tf.transpose(tf.matmul(P, coords_3d_h), perm=[1, 0])  # n_triangles, 3
     coords_projected_2D = coords_projected_2D_h[:, :2] / (coords_projected_2D_h[:, 2:3] + 1e-8)
 
     # Clip indexes in image range

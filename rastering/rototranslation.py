@@ -12,7 +12,7 @@ Vector = collections.namedtuple('Vector', ['x', 'y', 'z'])
 
 
 class RotoTranslation:
-    def __init__(self, rotation: Vector, translation: Vector, angle_unit: str, notation: str='XYZ'):
+    def __init__(self, rotation, translation, angle_unit, notation='XYZ'):
         self.rotation    = rotation
         self.translation = translation
 

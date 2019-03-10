@@ -24,8 +24,8 @@ def keep_top_n(meshes, top_n):
 
 
 class Rasterer:
-    def __init__(self, meshes: list, resolution_px: tuple, resolution_mm: tuple, focal_len_mm: int,
-                 pl_camera_pose: tf.Tensor, pl_model_idx: tf.Tensor, max_triangles: int=1000):
+    def __init__(self, meshes, resolution_px, resolution_mm, focal_len_mm,
+                 pl_camera_pose, pl_model_idx, max_triangles=1000):
         """
         Create a Rasterer object. The rendering output can be accessed through `image` attribute.
          
@@ -103,7 +103,7 @@ class Rasterer:
 
         self.image = images
 
-    def get_coords_to_test(self, triangle: tf.Tensor):
+    def get_coords_to_test(self, triangle):
         """
         Get from the meshgrid only the coordinates
         which lie inside the triangle bounding box
@@ -120,7 +120,7 @@ class Rasterer:
         return tf.reshape(coord_to_test, shape=(-1, 2))
 
     @staticmethod
-    def inside_outside(points_2d: tf.Tensor, triangle_2d: tf.Tensor):
+    def inside_outside(points_2d, triangle_2d):
         """
         Test for each pixel whether is lies in one or more 2D triangles.
         Each pixel has a non-zero value in the output iif it lies in at least one triangle.

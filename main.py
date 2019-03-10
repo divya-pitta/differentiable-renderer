@@ -41,5 +41,5 @@ if __name__ == '__main__':
                                                                   renderer.pl_camera_pose: camera_matrices})
 
         for b in range(n_meshes):
-            plt.imshow(render_output[b])
-            plt.waitforbuttonpress()
+            plt.imsave("rendered-img.png", render_output[b])
+            # plt.waitforbuttonpress()
