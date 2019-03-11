@@ -38,7 +38,8 @@ class Rasterer:
         :param max_triangles: For computational reasons, all meshes are pre-processed to have
                               a maximum number of triangles `max_triangles`.
         """
-        meshes = keep_top_n(meshes, top_n=max_triangles)
+
+        # meshes = keep_top_n(meshes, top_n=max_triangles)
         self.meshes = tf.constant(value=meshes, dtype=tf.float32)
 
         # Placeholders
