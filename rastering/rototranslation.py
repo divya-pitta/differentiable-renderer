@@ -110,7 +110,7 @@ class RotoTranslation:
         if self.notation == 'ZXY':
             self.R = matmul(self.R_y, matmul(self.R_x, self.R_z))
 
-        self.matrix = matmul(self.T, self.R)
+        self.matrix = matmul(self.T, self.R).astype(np.float32)
 
     def __str__(self):
         return RotoTranslation.pretty_string(self.matrix)
