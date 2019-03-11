@@ -71,8 +71,9 @@ class RotoTranslation:
 
         identity = lambda: tf.identity([4,4], dtype=tf.int32)
         self.T = tf.get_variable("translation",
-                                 # shape=(4,4),
+                                 shape=(4,4),
                                  initializer=identity)
+
         self.T[0,3] = self.translation.x
         self.T[1,3] = self.translation.y
         self.T[2,3] = self.translation.z
