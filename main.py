@@ -9,16 +9,16 @@ from rastering import Rasterer
 from rastering import RotoTranslation
 from rastering import Vector
 
-
+# import ipdb
 if __name__ == '__main__':
-
+    # ipdb.set_trace()
     camera_pose = RotoTranslation(rotation=Vector(x=90., y=0., z=0.),
                                   translation=Vector(x=0., y=-8., z=0.),
                                   angle_unit='degrees')
     print(camera_pose, '\n')
 
     # Toy dataset containing 5 random car meshes from Shapenetcore.
-    mesh_dataset = [np.load(mesh_path) for mesh_path in glob.glob('data/*/*.npy')]
+    mesh_dataset = [np.load(mesh_path) for mesh_path in glob.glob('data/*/*.npy')] # list of 5, each of shape (27920, 3, 3)
 
     camera_intrinsics = {'resolution_px': (128, 128), 'resolution_mm': (32, 32), 'focal_len_mm': 35}
     renderer = Rasterer(meshes=mesh_dataset,
@@ -28,11 +28,11 @@ if __name__ == '__main__':
 
     # Sample a bunch of models from the mesh dataset. There will be rendered in the same batch.
     n_meshes = 3
-    model_idxs = np.asarray(random.sample(range(len(mesh_dataset)), k=n_meshes))
+    model_idxs = np.asarray(random.sample(range(len(mesh_dataset)), k=n_meshes)) # array([3, 0, 1]) of length n_meshes
 
     # Load camera pose. In this case it is the same for all renderings.
-    camera_matrix = camera_pose.matrix
-    camera_matrices = np.tile(camera_matrix[None, ...], [n_meshes, 1, 1])
+    camera_matrix = camera_pose.matrix # 4x4 camera matrix
+    camera_matrices = np.tile(camera_matrix[None, ...], [n_meshes, 1, 1]) # 3 x 4 x 4 - same camera matrix repeated here
 
     with tf.Session() as tf_session:
         tf_session.run(tf.variables_initializer(tf.global_variables()))
