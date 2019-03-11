@@ -70,7 +70,7 @@ class RotoTranslation:
                              [0.0, 0.0, 0.0, 1.0]]))
 
         self.T = tf.get_variable("translation",
-                                 shape=(4,4),
+                                 # shape=(4,4),
                                  initializer=tf.identity((4,4)))
         self.T[0,3] = self.translation.x
         self.T[1,3] = self.translation.y
