@@ -69,10 +69,12 @@ class RotoTranslation:
                              [0.0, 0.0, 1.0, 0.0],
                              [0.0, 0.0, 0.0, 1.0]]))
 
-        self.T = tf.Variable([[1.0, 0.0, 0.0, self.translation.x],
-                           [0.0, 1.0, 0.0, self.translation.y],
-                           [0.0, 0.0, 1.0, self.translation.z],
-                           [0.0, 0.0, 0.0, 1.0]])
+        self.T = tf.get_variable("translation",
+                                 shape=(4,4),
+                                 initializer=tf.identity((4,4)))
+        self.T[0,3] = self.translation.x
+        self.T[1,3] = self.translation.y
+        self.T[2,3] = self.translation.z
 
         # self.R_x = tf.ones((4,4))
         # self.R_y = tf.ones((4,4))
