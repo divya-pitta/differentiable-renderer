@@ -53,30 +53,31 @@ class RotoTranslation:
         #                      [0.0,               1.0,               0.0,              self.translation.y],
         #                      [0.0,               0.0,               1.0,              self.translation.z],
         #                      [0.0,               0.0,               0.0,              1.0]])
-        pdb.set_trace()
+        # pdb.set_trace()
         self.R_x = tf.convert_to_tensor(np.array([[1.0, 0.0, 0.0, 0.0],
-                             [0.0, tf.cos(self.rotation.x), -tf.sin(self.rotation.x), 0.0],
-                             [0.0, tf.sin(self.rotation.x), tf.cos(self.rotation.x), 0.0],
+                             [0.0, cos(self.rotation.x), -sin(self.rotation.x), 0.0],
+                             [0.0, sin(self.rotation.x), cos(self.rotation.x), 0.0],
                              [0.0, 0.0, 0.0, 1.0]]))
-        # self.R_y = tf.convert_to_tensor(np.array([[cos(self.rotation.y), 0.0, sin(self.rotation.y), 0.0],
-        #                      [0.0, 1.0, 0.0, 0.0],
-        #                      [-sin(self.rotation.y), 0.0, cos(self.rotation.y), 0.0],
-        #                      [0.0, 0.0, 0.0, 1.0]]))
-        #
-        # self.R_z = tf.convert_to_tensor(np.array([[cos(self.rotation.z), -sin(self.rotation.z), 0.0, 0.0],
-        #                      [sin(self.rotation.z), cos(self.rotation.z), 0.0, 0.0],
-        #                      [0.0, 0.0, 1.0, 0.0],
-        #                      [0.0, 0.0, 0.0, 1.0]]))
-        #
-        # self.T = tf.convert_to_tensor(np.array([[1.0, 0.0, 0.0, self.translation.x],
-        #                    [0.0, 1.0, 0.0, self.translation.y],
-        #                    [0.0, 0.0, 1.0, self.translation.z],
-        #                    [0.0, 0.0, 0.0, 1.0]]))
+
+        self.R_y = tf.convert_to_tensor(np.array([[cos(self.rotation.y), 0.0, sin(self.rotation.y), 0.0],
+                             [0.0, 1.0, 0.0, 0.0],
+                             [-sin(self.rotation.y), 0.0, cos(self.rotation.y), 0.0],
+                             [0.0, 0.0, 0.0, 1.0]]))
+
+        self.R_z = tf.convert_to_tensor(np.array([[cos(self.rotation.z), -sin(self.rotation.z), 0.0, 0.0],
+                             [sin(self.rotation.z), cos(self.rotation.z), 0.0, 0.0],
+                             [0.0, 0.0, 1.0, 0.0],
+                             [0.0, 0.0, 0.0, 1.0]]))
+
+        self.T = tf.convert_to_tensor(np.array([[1.0, 0.0, 0.0, self.translation.x],
+                           [0.0, 1.0, 0.0, self.translation.y],
+                           [0.0, 0.0, 1.0, self.translation.z],
+                           [0.0, 0.0, 0.0, 1.0]]))
 
         # self.R_x = tf.ones((4,4))
-        self.R_y = tf.ones((4,4))
-        self.R_z = tf.ones((4,4))
-        self.T = tf.ones((4,4))
+        # self.R_y = tf.ones((4,4))
+        # self.R_z = tf.ones((4,4))
+        # self.T = tf.ones((4,4))
 
         if self.notation == 'XYZ':
             self.R = tf.matmul(self.R_z, tf.matmul(self.R_y, self.R_x))
