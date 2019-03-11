@@ -40,9 +40,11 @@ class Rasterer:
         """
 
         # meshes = keep_top_n(meshes, top_n=max_triangles)
-        self.meshes = tf.constant(value=meshes, dtype=tf.float32)
-
-        # Placeholders
+        #self.meshes = tf.constant(value=meshes, dtype=tf.float32)
+	
+        #self.meshes = tf.Variable(value=meshes, dtype=tf.float32)
+        self.meshes = meshes
+	# Placeholders
         self.pl_model_idx   = pl_model_idx     # (None,)
         self.pl_camera_pose = pl_camera_pose   # (None, 4, 4)
 
