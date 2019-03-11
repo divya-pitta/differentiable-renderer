@@ -7,6 +7,7 @@ from math import sin
 import numpy as np
 from numpy import matmul
 import tensorflow as tf
+import pdb
 
 
 Vector = collections.namedtuple('Vector', ['x', 'y', 'z'])
@@ -52,7 +53,7 @@ class RotoTranslation:
         #                      [0.0,               1.0,               0.0,              self.translation.y],
         #                      [0.0,               0.0,               1.0,              self.translation.z],
         #                      [0.0,               0.0,               0.0,              1.0]])
-
+        pdb.set_trace()
         self.R_x = tf.convert_to_tensor(np.array([[1.0, 0.0, 0.0, 0.0],
                              [0.0, tf.cos(self.rotation.x), -tf.sin(self.rotation.x), 0.0],
                              [0.0, tf.sin(self.rotation.x), tf.cos(self.rotation.x), 0.0],
