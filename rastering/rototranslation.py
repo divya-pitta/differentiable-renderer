@@ -69,10 +69,10 @@ class RotoTranslation:
                              [0.0, 0.0, 1.0, 0.0],
                              [0.0, 0.0, 0.0, 1.0]]))
 
-        self.T = tf.convert_to_tensor(np.array([[1.0, 0.0, 0.0, self.translation.x],
+        self.T = tf.Variable([[1.0, 0.0, 0.0, self.translation.x],
                            [0.0, 1.0, 0.0, self.translation.y],
                            [0.0, 0.0, 1.0, self.translation.z],
-                           [0.0, 0.0, 0.0, 1.0]]))
+                           [0.0, 0.0, 0.0, 1.0]])
 
         # self.R_x = tf.ones((4,4))
         # self.R_y = tf.ones((4,4))
